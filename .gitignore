@@ -1,0 +1,19 @@
+# Ignore node_modules (Vue)
+vue/node_modules/
+
+# Ignore dist (Vue)
+vue/dist/
+
+# Ignore .env file (Vue or ASP.NET Core)
+**/.env
+**/.env.*
+
+# Ignore ASP.NET build artifacts
+WebService/bin/
+WebService/obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.vs/
+.vscode/
