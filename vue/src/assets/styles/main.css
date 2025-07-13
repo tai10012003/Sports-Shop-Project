@@ -1,20 +1,77 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css');
 
-:root {
-    --primary-color: #003780;
-    --secondary-color: #34a853;
-    --dark-color: #202124;
-    --light-color: #f8f9fa;
-    --gradient: linear-gradient(120deg, #367cd7, #34a853);
-  }
-  
+
 body {
   padding-top: 76px;
 }
 
-.gradient-text {
-  background: linear-gradient(45deg, #2196F3, #00BCD4);
+:root {
+      --primary-color: #003780;
+    --secondary-color: #34a853;
+    --dark-color: #202124;
+    --light-color: #f8f9fa;
+    --gradient: linear-gradient(120deg, #367cd7, #34a853);
+  /* Colors */
+  --primary: #367cd7;
+  --secondary: #34a853;
+  --dark: #1a1a1a;
+  --light: #f8f9fa;
+  --white: #ffffff;
+  --gray: #6c757d;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(120deg, var(--primary), var(--secondary));
+  --gradient-dark: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+  
+  /* Shadows */
+  --shadow-sm: 0 5px 15px rgba(0,0,0,0.08);
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
+  --shadow-lg: 0 15px 35px rgba(0,0,0,0.12);
+  
+  /* Border Radius */
+  --radius-sm: 10px;
+  --radius-md: 15px;
+  --radius-lg: 20px;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  
+  /* Typography */
+  --font-size-sm: 0.9rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.2rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 3rem;
+  --font-size-4xl: 4rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  background: linear-gradient(120deg, #367cd7, #34a853);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.gradient-text {
+  background: linear-gradient(270deg, #003780, #34a853);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 2s linear infinite;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
