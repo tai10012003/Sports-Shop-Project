@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using WebService.DTOs.Products;
 using WebService.Interfaces.Products;
 using WebService.Models;
+using WebService.Interfaces.Brands; // Add this
+using WebService.Interfaces.Categories;
 
 namespace WebService.Controllers
 {
@@ -10,16 +12,50 @@ namespace WebService.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService; // Giả sử có service cho category
+        private readonly IBrandService _brandService; // Giả sử có service cho brand
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, ICategoryService categoryService, IBrandService brandService)
         {
             _productService = productService;
+            _categoryService = categoryService;
+            _brandService = brandService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GetProductDTO>>> GetProducts()
+        public async Task<ActionResult<object>> GetProducts(
+            [FromQuery] string search = "",
+            [FromQuery] string category = "",
+            [FromQuery] string brand = "",
+            [FromQuery] string price = "",
+            [FromQuery] string sort = "",
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 9,
+            [FromQuery] bool promotion = false
+        )
         {
-            return Ok(await _productService.GetAllAsync());
+            var (products, totalCount) = await _productService.GetAllAsync(search, category, brand, price, sort, page, pageSize, promotion);
+            var categories = await _categoryService.GetAllAsync(); // Lấy danh sách loại sản phẩm
+            var brands = await _brandService.GetAllAsync(); // Lấy danh sách thương hiệu
+
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+            return Ok(new
+            {
+                products = products,
+                categories = categories,
+                brands = brands,
+                totalProducts = totalCount,
+                totalPages = totalPages
+            });
+        }
+
+        // Gợi ý tên sản phẩm
+        [HttpGet("suggest")]
+        public async Task<IActionResult> Suggest([FromQuery] string query)
+        {
+            var suggestions = await _productService.GetSuggestionsAsync(query);
+            return Ok(suggestions);
         }
 
         [HttpGet("featured")]

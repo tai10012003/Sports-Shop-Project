@@ -16,7 +16,7 @@ namespace WebService.Models
         public string MaSanPham { get; set; } = string.Empty;
 
         [Required]
-        [Column("ten_san_pham", TypeName = "varchar(255)")]
+        [Column("ten_san_pham", TypeName = "nvarchar(255)")]
         public string TenSanPham { get; set; } = string.Empty;
 
         [Column("mo_ta", TypeName = "text")]
@@ -25,19 +25,19 @@ namespace WebService.Models
         [Column("mo_ta_chi_tiet", TypeName = "text")]
         public string? MoTaChiTiet { get; set; }
 
-        [Column("kich_thuoc", TypeName = "varchar(50)")]
+        [Column("kich_thuoc", TypeName = "nvarchar(50)")]
         public string? KichThuoc { get; set; }
 
-        [Column("mau_sac", TypeName = "varchar(50)")]
+        [Column("mau_sac", TypeName = "nvarchar(50)")]
         public string? MauSac { get; set; }
 
-        [Column("chat_lieu", TypeName = "varchar(100)")]
+        [Column("chat_lieu", TypeName = "nvarchar(100)")]
         public string? ChatLieu { get; set; }
 
-        [Column("xuat_xu", TypeName = "varchar(100)")]
+        [Column("xuat_xu", TypeName = "nvarchar(100)")]
         public string? XuatXu { get; set; }
 
-        [Column("bao_hanh", TypeName = "varchar(50)")]
+        [Column("bao_hanh", TypeName = "nvarchar(50)")]
         public string? BaoHanh { get; set; }
 
         [Required]

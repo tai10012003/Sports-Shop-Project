@@ -4,7 +4,17 @@ namespace WebService.Interfaces.Products
 {
     public interface IProductService
     {
-        Task<IEnumerable<GetProductDTO>> GetAllAsync();
+        Task<(IEnumerable<GetProductDTO> products, int totalCount)> GetAllAsync(
+        string search = "",
+        string category = "",
+        string brand = "",
+        string price = "",
+        string sort = "",
+        int page = 1,
+        int pageSize = 9,
+        bool promotion = false // Thêm dòng này!
+    );
+        Task<List<GetProductDTO>> GetSuggestionsAsync(string query);
         Task<ProductResponseDTO?> GetByIdAsync(int id);
         Task<ProductResponseDTO?> GetByCodeAsync(string maSanPham);
         Task<IEnumerable<GetProductDTO>> GetFeaturedAsync();

@@ -15,7 +15,7 @@ namespace WebService.Models
         public string MaDanhMuc { get; set; } = string.Empty;
 
         [Required]
-        [Column("ten_danh_muc", TypeName = "varchar(50)")]
+        [Column("ten_danh_muc", TypeName = "nvarchar(50)")]
         public string TenDanhMuc { get; set; } = string.Empty;
 
         [Column("mo_ta", TypeName = "text")]
