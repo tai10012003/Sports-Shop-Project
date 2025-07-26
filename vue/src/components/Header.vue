@@ -1,8 +1,27 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import AuthService from '@/services/AuthService'
+
+const router = useRouter()
+
 const cartCount = ref(0)
-const isLoggedIn = ref(false)
-const username = ref('')
+const user = ref(null)
+const isLoggedIn = computed(() => !!user.value)
+const username = computed(() => user.value.hoTen || '')
+
+onMounted(() => {
+  const stored = localStorage.getItem('user')
+  user.value = stored ? JSON.parse(stored) : null
+})
+
+function logout() {
+ AuthService.logout()
+
+  localStorage.removeItem('user')
+  user.value = null
+  router.push('/dang-nhap')
+}
 </script>
 
 <template>
@@ -23,11 +42,13 @@ const username = ref('')
               <i class="bi bi-house-door-fill me-2"></i>Trang chủ
             </router-link>
           </li>
+
           <li class="nav-item">
             <router-link class="nav-link btn-hover px-4" to="/gioi-thieu">
               <i class="bi bi-info-circle-fill me-2"></i>Giới thiệu
             </router-link>
           </li>
+
           <li class="nav-item dropdown">
             <router-link class="nav-link btn-hover px-4 dropdown-toggle" to="/san-pham">
               <i class="bi bi-grid-fill me-2"></i>Sản phẩm
@@ -45,22 +66,28 @@ const username = ref('')
               </div>
             </div>
           </li>
+
           <li class="nav-item">
-            <router-link class="nav-link btn-hover px-4" to="/bai-viet">
+          <router-link class="nav-link btn-hover px-4" to="/bai-viet">
               <i class="bi bi-newspaper me-2"></i>Bài viết
             </router-link>
           </li>
+
           <li class="nav-item">
             <router-link class="nav-link btn-hover px-4" to="/lien-he">
               <i class="bi bi-envelope-fill me-2"></i>Liên hệ
             </router-link>
           </li>
+
+          <!-- Cart -->
           <li class="nav-item nav-item-action ms-lg-4">
             <router-link class="nav-link cart-btn" to="/gio-hang">
               <i class="bi bi-cart3"></i>
               <span class="cart-badge">{{ cartCount }}</span>
             </router-link>
           </li>
+
+          <!-- User -->
           <li class="nav-item nav-item-action ms-lg-3">
             <div v-if="isLoggedIn" class="dropdown">
               <a class="nav-link user-menu dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -68,12 +95,25 @@ const username = ref('')
                 <span>{{ username }}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-end user-dropdown">
-                <li><router-link class="dropdown-item" to="/tai-khoan"><i class="bi bi-person me-2"></i>Tài khoản</router-link></li>
-                <li><router-link class="dropdown-item" to="/don-hang"><i class="bi bi-bag me-2"></i>Đơn hàng</router-link></li>
+                <li>
+                  <router-link class="dropdown-item" to="/tai-khoan">
+                    <i class="bi bi-person me-2"></i>Tài khoản
+                  </router-link>
+                </li>
+                <li>
+                  <router-link class="dropdown-item" to="/don-hang">
+                    <i class="bi bi-bag me-2"></i>Đơn hàng
+                  </router-link>
+                </li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#" @click="logout"><i class="bi bi-box-arrow-right me-2"></i>Đăng xuất</a></li>
+                <li>
+                  <a class="dropdown-item text-danger" href="#" @click.prevent="logout">
+                    <i class="bi bi-box-arrow-right me-2"></i>Đăng xuất
+                  </a>
+                </li>
               </ul>
             </div>
+
             <router-link v-else class="nav-link login-btn" to="/dang-nhap">
               <i class="bi bi-person me-2"></i>Đăng nhập
             </router-link>

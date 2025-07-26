@@ -6,12 +6,17 @@ body {
   padding-top: 76px;
 }
 
+body.no-header {
+  padding-top: 0;
+}
+
 :root {
-      --primary-color: #003780;
-    --secondary-color: #34a853;
-    --dark-color: #202124;
-    --light-color: #f8f9fa;
-    --gradient: linear-gradient(120deg, #367cd7, #34a853);
+  --primary-color: #003780;
+  --secondary-color: #34a853;    
+  --dark-color: #202124;
+  --light-color: #f8f9fa;
+  --gradient: linear-gradient(120deg, #367cd7, #34a853);
+  --gradient-hover: linear-gradient(120deg, #2d6ab8, #2d9247);
   /* Colors */
   --primary: #367cd7;
   --secondary: #34a853;
@@ -25,9 +30,9 @@ body {
   --gradient-dark: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5));
   
   /* Shadows */
-  --shadow-sm: 0 5px 15px rgba(0,0,0,0.08);
-  --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
-  --shadow-lg: 0 15px 35px rgba(0,0,0,0.12);
+  --shadow-sm: 0 2px 8px rgba(54,124,215,0.1);
+  --shadow-md: 0 4px 16px rgba(54,124,215,0.15);
+  --shadow-lg: 0 8px 24px rgba(54,124,215,0.2);
   
   /* Border Radius */
   --radius-sm: 10px;

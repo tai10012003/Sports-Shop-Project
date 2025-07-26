@@ -11,6 +11,8 @@ namespace WebService.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<ProductReview> ProductReviews { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,7 +26,6 @@ namespace WebService.Data
                 .Property(p => p.NgayTao)
                 .HasDefaultValueSql("GETDATE()");
 
-            // Category relationships
             modelBuilder.Entity<Category>()
                 .HasAlternateKey(c => c.MaDanhMuc);
 
@@ -34,7 +35,6 @@ namespace WebService.Data
                 .HasForeignKey(p => p.MaDanhMuc)
                 .HasPrincipalKey(c => c.MaDanhMuc);
 
-            // Brand relationships
             modelBuilder.Entity<Brand>()
                 .HasAlternateKey(b => b.MaThuongHieu);
                 
@@ -44,7 +44,6 @@ namespace WebService.Data
                 .HasForeignKey(p => p.MaThuongHieu)
                 .HasPrincipalKey(b => b.MaThuongHieu);
 
-            // Default values for Category
             modelBuilder.Entity<Category>()
                 .Property(c => c.NgayTao)
                 .HasDefaultValueSql("GETDATE()");
@@ -52,7 +51,6 @@ namespace WebService.Data
                 .Property(c => c.NgayCapNhat)
                 .HasDefaultValueSql("GETDATE()");
 
-            // Default values for Brand
             modelBuilder.Entity<Brand>()
                 .Property(b => b.NgayTao)
                 .HasDefaultValueSql("GETDATE()");
@@ -75,6 +73,26 @@ namespace WebService.Data
                 .WithMany(p => p.HinhAnh)
                 .HasForeignKey(pi => pi.MaSanPham)
                 .HasPrincipalKey(p => p.MaSanPham);
+
+            modelBuilder.Entity<ProductReview>()
+                .Property(pr => pr.NgayTao)
+                .HasDefaultValueSql("GETDATE()");
+            modelBuilder.Entity<ProductReview>()
+                .Property(pr => pr.NgayCapNhat)
+                .HasDefaultValueSql("GETDATE()");
+
+            modelBuilder.Entity<ProductReview>()
+                .HasOne<Product>()
+                .WithMany()
+                .HasForeignKey(pr => pr.MaSanPham)
+                .HasPrincipalKey(p => p.MaSanPham);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.NgayTao)
+                .HasDefaultValueSql("GETDATE()");
+            modelBuilder.Entity<User>()
+                .Property(u => u.NgayCapNhat)
+                .HasDefaultValueSql("GETDATE()");
         }
     }
 }

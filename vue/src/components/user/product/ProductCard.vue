@@ -4,7 +4,7 @@
       -{{ Math.round((1 - product.giaKhuyenMai / product.gia) * 100) }}%
     </div>
     <div class="product-image">
-      <router-link :to="`/san-pham/${product.maSanPham}`">
+      <router-link :to="`/san-pham/` + product.slug">
         <img :src="getImagePath(product)" :alt="product.tenSanPham" class="img-fluid">
       </router-link>
       <div class="product-actions">
@@ -14,13 +14,13 @@
         <button class="btn btn-light btn-sm">
           <i class="bi bi-heart"></i>
         </button>
-        <router-link :to="`/san-pham/${product.maSanPham}`" class="btn btn-light btn-sm">
+        <router-link :to="`/san-pham/` + product.slug" class="btn btn-light btn-sm">
           <i class="bi bi-eye"></i>
         </router-link>
       </div>
     </div>
     <div class="product-info">
-      <router-link :to="`/san-pham/${product.maSanPham}`" class="text-decoration-none">
+      <router-link :to="`/san-pham/`" class="text-decoration-none">
         <h3 class="product-title">{{ product.tenSanPham }}</h3>
       </router-link>
       <div class="product-price">
@@ -41,14 +41,10 @@
 defineProps(['product'])
 const formatPrice = (price) => new Intl.NumberFormat('vi-VN').format(price)
 
-// Cập nhật getImagePath để hỗ trợ cả mainImage và hinhAnh
 const getImagePath = (product) => {
-  // Ưu tiên mainImage nếu có (từ getFeaturedProducts hoặc getProducts)
   if (product.mainImage) return product.mainImage
-
-  // Nếu không có mainImage, xử lý từ hinhAnh
   if (!product.hinhAnh || product.hinhAnh.length === 0) return '/images/products/no-image.jpg'
-  const mainImage = product.hinhAnh.find(img => img.anhChinh) || product.hinhAnh[0] // Lấy ảnh chính hoặc ảnh đầu tiên
+  const mainImage = product.hinhAnh.find(img => img.anhChinh) || product.hinhAnh[0]
   return mainImage ? `/uploads/products/${mainImage.duongDan}` : '/images/products/no-image.jpg'
 }
 </script>

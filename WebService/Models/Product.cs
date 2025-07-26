@@ -16,28 +16,28 @@ namespace WebService.Models
         public string MaSanPham { get; set; } = string.Empty;
 
         [Required]
-        [Column("ten_san_pham", TypeName = "nvarchar(255)")]
+        [Column("ten_san_pham", TypeName = "nvarchar(100)")]
         public string TenSanPham { get; set; } = string.Empty;
 
-        [Column("mo_ta", TypeName = "text")]
+        [Column("mo_ta", TypeName = "nvarchar(150)")]
         public string? MoTa { get; set; }
 
-        [Column("mo_ta_chi_tiet", TypeName = "text")]
+        [Column("mo_ta_chi_tiet", TypeName = "nvarchar(max)")]
         public string? MoTaChiTiet { get; set; }
 
-        [Column("kich_thuoc", TypeName = "nvarchar(50)")]
+        [Column("kich_thuoc", TypeName = "nvarchar(30)")]
         public string? KichThuoc { get; set; }
 
-        [Column("mau_sac", TypeName = "nvarchar(50)")]
+        [Column("mau_sac", TypeName = "nvarchar(30)")]
         public string? MauSac { get; set; }
 
         [Column("chat_lieu", TypeName = "nvarchar(100)")]
         public string? ChatLieu { get; set; }
 
-        [Column("xuat_xu", TypeName = "nvarchar(100)")]
+        [Column("xuat_xu", TypeName = "nvarchar(30)")]
         public string? XuatXu { get; set; }
 
-        [Column("bao_hanh", TypeName = "nvarchar(50)")]
+        [Column("bao_hanh", TypeName = "nvarchar(20)")]
         public string? BaoHanh { get; set; }
 
         [Required]

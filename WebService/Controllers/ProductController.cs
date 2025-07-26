@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebService.DTOs.Products;
 using WebService.Interfaces.Products;
 using WebService.Models;
-using WebService.Interfaces.Brands; // Add this
+using WebService.Interfaces.Brands;
 using WebService.Interfaces.Categories;
 
 namespace WebService.Controllers
@@ -12,8 +12,8 @@ namespace WebService.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService; // Giả sử có service cho category
-        private readonly IBrandService _brandService; // Giả sử có service cho brand
+        private readonly ICategoryService _categoryService;
+        private readonly IBrandService _brandService;
 
         public ProductController(IProductService productService, ICategoryService categoryService, IBrandService brandService)
         {
@@ -35,8 +35,8 @@ namespace WebService.Controllers
         )
         {
             var (products, totalCount) = await _productService.GetAllAsync(search, category, brand, price, sort, page, pageSize, promotion);
-            var categories = await _categoryService.GetAllAsync(); // Lấy danh sách loại sản phẩm
-            var brands = await _brandService.GetAllAsync(); // Lấy danh sách thương hiệu
+            var categories = await _categoryService.GetAllAsync();
+            var brands = await _brandService.GetAllAsync();
 
             var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
 
@@ -50,7 +50,6 @@ namespace WebService.Controllers
             });
         }
 
-        // Gợi ý tên sản phẩm
         [HttpGet("suggest")]
         public async Task<IActionResult> Suggest([FromQuery] string query)
         {

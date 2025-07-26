@@ -18,7 +18,7 @@ namespace WebService.Models
         [Column("ten_thuong_hieu", TypeName = "nvarchar(50)")]
         public string TenThuongHieu { get; set; } = string.Empty;
 
-        [Column("mo_ta", TypeName = "text")]
+        [Column("mo_ta", TypeName = "nvarchar(max)")]
         public string? MoTa { get; set; }
 
         [Column("logo", TypeName = "varchar(255)")]

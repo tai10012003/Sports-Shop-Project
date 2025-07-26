@@ -6,7 +6,6 @@ import ProductService from '@/services/ProductService'
 const featuredProducts = ref([])
 
 onMounted(async () => {
-  // Fetch featured products from API
   try {
     const products = await ProductService.getFeaturedProducts()
     featuredProducts.value = products.map(p => ({
@@ -19,7 +18,6 @@ onMounted(async () => {
   }
 })
 
-// Methods
 const formatPrice = (price) => {
   return new Intl.NumberFormat('vi-VN').format(price)
 }

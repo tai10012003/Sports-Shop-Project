@@ -31,7 +31,6 @@ namespace WebService.Services
             var products = await _repository.GetAllAsync();
             var query = products.AsQueryable();
 
-            // Tìm kiếm không phân biệt hoa thường
             if (!string.IsNullOrWhiteSpace(search))
             {
                 var lowerSearch = search.ToLower();
@@ -41,15 +40,12 @@ namespace WebService.Services
                 );
             }
 
-            // Lọc danh mục
             if (!string.IsNullOrEmpty(category))
                 query = query.Where(p => p.MaDanhMuc == category);
 
-            // Lọc thương hiệu
             if (!string.IsNullOrEmpty(brand))
                 query = query.Where(p => p.MaThuongHieu == brand);
 
-            // Lọc giá
             if (!string.IsNullOrEmpty(price))
             {
                 var range = price.Split('-');
@@ -62,17 +58,13 @@ namespace WebService.Services
                 }
             }
 
-            // Lọc khuyến mãi
             if (promotion)
                 query = query.Where(p => p.GiaKhuyenMai != null && p.GiaKhuyenMai < p.Gia);
 
-            // Sắp xếp
             query = ApplySorting(query, sort);
 
-            // Tổng số sản phẩm trước khi phân trang
             int totalCount = query.Count();
 
-            // Phân trang
             var pagedProducts = query
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)

@@ -2,6 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '@/views/About.vue'
 import Product from '@/views/Product.vue'
+import Login from '@/views/Login.vue'
+import Register from '@/views/Register.vue'
+import Profile from '@/views/Profile.vue'
+import AuthService from '@/services/AuthService'
 
 const routes = [
   {
@@ -18,6 +22,22 @@ const routes = [
     path: '/san-pham',
     name: 'Product',
     component: Product
+  },
+  {
+    path: '/dang-nhap',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/dang-ky',
+    name: 'Register',
+    component: Register
+  },
+  {
+    path: '/tai-khoan',
+    name: 'Profile',
+    component: Profile,
+    meta: { requiresAuth: true }
   }
 ]
 
@@ -26,4 +46,15 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!AuthService.isLoggedIn()) {
+      next('/dang-nhap')
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 export default router

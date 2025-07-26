@@ -61,8 +61,7 @@ async getProducts(params = {}) {
 
 async getSuggestions(query) {
     const res = await axios.get(`${API_URL}/Product/suggest`, { params: { query } })
-    console.log('Suggestions API result:', res.data)
-    return res.data // res.data là mảng sản phẩm
+    return res.data
 },
 
   getMainImage(product) {

@@ -1,4 +1,3 @@
-<!-- src/pages/ProductPage.vue -->
 <template>
   <ProductList />
 </template>

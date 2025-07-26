@@ -4,7 +4,6 @@ import slider1 from '@/assets/images/sliders/slider1.jpg'
 import slider2 from '@/assets/images/sliders/slider2.jpg'
 import slider3 from '@/assets/images/sliders/slider3.jpg'
 
-// Parallax effect for hero carousel
 const handleParallaxEffects = () => {
   const scrolled = window.pageYOffset
   const heroImages = document.querySelectorAll("#heroCarousel .carousel-item img")

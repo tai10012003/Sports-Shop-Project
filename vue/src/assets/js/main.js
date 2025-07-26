@@ -22,7 +22,6 @@ export const addToCart = async (productId, quantity = 1) => {
 }
 
 export const showNotification = (message, type = "success") => {
-  // Using SweetAlert2
   Swal.fire({
     text: message,
     icon: type,
@@ -34,7 +33,6 @@ export const showNotification = (message, type = "success") => {
   });
 }
 
-// Scroll handlers
 export const handleScroll = () => {
   const navbar = document.querySelector(".navbar");
   const currentScroll = window.pageYOffset;
@@ -48,7 +46,6 @@ export const handleScroll = () => {
   }
 }
 
-// Parallax effect
 export const handleParallax = () => {
   const scrolled = window.pageYOffset;
   const heroImages = document.querySelectorAll(".carousel-item img");

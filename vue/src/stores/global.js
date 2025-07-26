@@ -8,7 +8,6 @@ export const useGlobalStore = defineStore('global', {
   }),
   actions: {
     initializeListeners() {
-      // Intersection Observer cho animation
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -24,7 +23,6 @@ export const useGlobalStore = defineStore('global', {
         observer.observe(el)
       })
 
-      // Smooth scroll cho các anchor link
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener('click', function (e) {
           const href = this.getAttribute('href')
@@ -37,8 +35,6 @@ export const useGlobalStore = defineStore('global', {
           }
         })
       })
-
-      // Lắng nghe scroll
       window.addEventListener('scroll', handleScroll)
       window.addEventListener('scroll', handleParallax)
 

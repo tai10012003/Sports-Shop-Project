@@ -213,7 +213,6 @@ async function fetchProducts() {
       page: currentPage.value,
       sort: (filters.sort === 'price_asc' || filters.sort === 'price_desc') ? filters.sort : ''
     }
-    // Chỉ hiện khuyến mãi
     if (filters.sort === 'promotion') {
       params.promotion = true
     }

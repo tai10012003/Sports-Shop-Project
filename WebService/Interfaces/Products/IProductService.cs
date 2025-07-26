@@ -12,7 +12,7 @@ namespace WebService.Interfaces.Products
         string sort = "",
         int page = 1,
         int pageSize = 9,
-        bool promotion = false // Thêm dòng này!
+        bool promotion = false
     );
         Task<List<GetProductDTO>> GetSuggestionsAsync(string query);
         Task<ProductResponseDTO?> GetByIdAsync(int id);
