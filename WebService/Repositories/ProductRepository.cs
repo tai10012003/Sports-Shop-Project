@@ -35,6 +35,13 @@ namespace WebService.Repositories
                 .FirstOrDefaultAsync(p => p.MaSanPham == maSanPham);
         }
 
+        public async Task<Product> GetBySlugAsync(string slug)
+        {
+            return await _context.Products
+                .Include(p => p.HinhAnh)
+                .FirstOrDefaultAsync(p => p.Slug == slug);
+        }
+
         public async Task<IEnumerable<Product>> GetFeaturedAsync()
         {
             return await _context.Products

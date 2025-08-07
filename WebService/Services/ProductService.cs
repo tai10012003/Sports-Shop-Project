@@ -117,6 +117,13 @@ namespace WebService.Services
             return _mapper.Map<ProductResponseDTO>(product);
         }
 
+        public async Task<ProductResponseDTO> GetBySlugAsync(string slug)
+        {
+            var product = await _repository.GetBySlugAsync(slug);
+            if (product == null) return null;
+            return _mapper.Map<ProductResponseDTO>(product);
+        }
+
         public async Task<ProductResponseDTO?> GetByCodeAsync(string maSanPham)
         {
             var product = await _repository.GetByCodeAsync(maSanPham);

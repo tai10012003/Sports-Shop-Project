@@ -64,6 +64,41 @@ async getSuggestions(query) {
     return res.data
 },
 
+async getProductDetail(slug) {
+  try {
+    const res = await axios.get(`${API_URL}/Product/slug/${slug}`)
+    const product = res.data
+    const mainImage = this.getMainImage(product)
+    return { ...product, mainImage }
+  } catch (error) {
+    console.error('Error fetching product detail:', error)
+    return null
+  }
+},
+
+  async getProductReviews(productId) {
+    try {
+      const res = await axios.get(`${API_URL}/ProductReviews/product/${productId}`)
+      return res.data
+    } catch (error) {
+      console.error('Error fetching reviews:', error)
+      return []
+    }
+  },
+
+  async getRelatedProducts(slug) {
+    try {
+      const res = await axios.get(`${API_URL}/related-products/${slug}`)
+      return res.data.map(product => {
+        const mainImage = this.getMainImage(product)
+        return { ...product, mainImage }
+      })
+    } catch (error) {
+      console.error('Error fetching related products:', error)
+      return []
+    }
+  },
+  
   getMainImage(product) {
     if (!product.hinhAnh || !product.hinhAnh.length) return null
     const mainImage = product.hinhAnh.find(img => img.anhChinh) || product.hinhAnh[0]

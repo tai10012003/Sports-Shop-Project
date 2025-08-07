@@ -16,6 +16,7 @@ namespace WebService.Interfaces.Products
     );
         Task<List<GetProductDTO>> GetSuggestionsAsync(string query);
         Task<ProductResponseDTO?> GetByIdAsync(int id);
+        Task<ProductResponseDTO?> GetBySlugAsync(string slug);
         Task<ProductResponseDTO?> GetByCodeAsync(string maSanPham);
         Task<IEnumerable<GetProductDTO>> GetFeaturedAsync();
         Task<ProductResponseDTO> CreateAsync(CreateProductDTO productDto);

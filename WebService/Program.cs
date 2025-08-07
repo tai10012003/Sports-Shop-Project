@@ -10,6 +10,7 @@ using WebService.Interfaces.Brands;
 using WebService.Interfaces.ProductImages;
 using WebService.Interfaces.Auth;
 using WebService.Interfaces.Users;
+using WebService.Interfaces.ProductReviews;
 using WebService.Repositories;
 using WebService.Services;
 
@@ -41,6 +42,7 @@ builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductReviewRepository, ProductReviewRepository>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -48,6 +50,7 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IProductImageService, ProductImageService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductReviewService, ProductReviewService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

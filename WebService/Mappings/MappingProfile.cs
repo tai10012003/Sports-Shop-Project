@@ -4,6 +4,7 @@ using WebService.DTOs.Categories;
 using WebService.DTOs.Brands;
 using WebService.DTOs.ProductImages;
 using WebService.DTOs.Users;
+using WebService.DTOs.ProductReviews;
 using WebService.Models;
 
 namespace WebService.Mappings
@@ -50,6 +51,17 @@ namespace WebService.Mappings
                 .ForMember(dest => dest.TenDangNhap, opt => opt.Ignore())
                 .ForMember(dest => dest.MatKhau, opt => opt.Ignore())
                 .ForMember(dest => dest.NgayTao, opt => opt.Ignore());
+
+            CreateMap<ProductReview, GetProductReviewDTO>();
+            CreateMap<ProductReview, ProductReviewResponseDTO>();
+            CreateMap<CreateProductReviewDTO, ProductReview>()
+                .ForMember(dest => dest.NgayTao, opt => opt.MapFrom(_ => DateTime.Now))
+                .ForMember(dest => dest.NgayCapNhat, opt => opt.MapFrom(_ => DateTime.Now));
+            CreateMap<UpdateProductReviewDTO, ProductReview>()
+                .ForMember(dest => dest.MaSanPham, opt => opt.Ignore())
+                .ForMember(dest => dest.MaNguoiDung, opt => opt.Ignore())
+                .ForMember(dest => dest.NgayTao, opt => opt.Ignore())
+                .ForMember(dest => dest.NgayCapNhat, opt => opt.MapFrom(_ => DateTime.Now));
         }
     }
 }

@@ -6,6 +6,7 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import Profile from '@/views/Profile.vue'
 import AuthService from '@/services/AuthService'
+import ProductDetail from '@/views/ProductDetail.vue'
 
 const routes = [
   {
@@ -22,6 +23,12 @@ const routes = [
     path: '/san-pham',
     name: 'Product',
     component: Product
+  },
+  {
+    path: '/san-pham/:slug',
+    name: 'ProductDetail',
+    component: ProductDetail,
+    props: true
   },
   {
     path: '/dang-nhap',

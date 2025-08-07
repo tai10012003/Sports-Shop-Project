@@ -64,13 +64,22 @@ namespace WebService.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<ProductResponseDTO>> GetProduct(int id)
         {
             var product = await _productService.GetByIdAsync(id);
             if (product == null)
                 return NotFound();
-            return product;
+            return Ok(product);
+        }
+
+        [HttpGet("slug/{slug}")]
+        public async Task<ActionResult<ProductResponseDTO>> GetProductDetail(string slug)
+        {
+            var product = await _productService.GetBySlugAsync(slug);
+            if (product == null)
+                return NotFound();
+            return Ok(product);
         }
 
         [HttpPost]

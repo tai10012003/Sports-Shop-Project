@@ -6,6 +6,7 @@ namespace WebService.Interfaces.Products
     {
         Task<IEnumerable<Product>> GetAllAsync();
         Task<Product?> GetByIdAsync(int id);
+        Task<Product> GetBySlugAsync(string slug);
         Task<Product?> GetByCodeAsync(string maSanPham);
         Task<IEnumerable<Product>> GetFeaturedAsync();
         Task<Product> CreateAsync(Product product);
