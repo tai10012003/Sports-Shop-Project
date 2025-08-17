@@ -40,7 +40,25 @@ export default {
         return user ? JSON.parse(user) : null
     },
 
+    checkAuth() {
+        const user = this.getCurrentUser()
+        if (!user || !user.token) return false
+        try {
+            const payload = JSON.parse(atob(user.token.split('.')[1]))
+            const expirationTime = payload.exp * 1000
+            if (Date.now() >= expirationTime) {
+                localStorage.removeItem('user')
+                return false
+            }
+            return true
+        } catch (error) {
+            console.error('Error checking JWT:', error)
+            localStorage.removeItem('user')
+            return false
+        }
+    },
+
     isLoggedIn() {
-        return !!this.getCurrentUser()
+        return this.checkAuth()
     }
 }

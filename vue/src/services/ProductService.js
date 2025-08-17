@@ -69,10 +69,17 @@ async getProductDetail(slug) {
     const res = await axios.get(`${API_URL}/Product/slug/${slug}`)
     const product = res.data
     const mainImage = this.getMainImage(product)
-    return { ...product, mainImage }
+    const images = product.hinhAnh?.map(img => 
+      `${VUE_BASE_URL}${img.duongDan.replace('/assets', '/src/assets')}`
+    )
+    return {
+      ...product,
+      mainImage,
+      images,
+    }
   } catch (error) {
     console.error('Error fetching product detail:', error)
-    return null
+    throw new Error('Không thể tải thông tin sản phẩm')
   }
 },
 

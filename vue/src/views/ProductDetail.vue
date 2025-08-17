@@ -1,23 +1,34 @@
 <template>
-  <div v-if="product">
-    <GeneralInfor :product="product" />
-    <div class="detail-tabs">
-      <ul class="nav nav-tabs detail-tab-nav" role="tablist">
-        <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#description">Mô tả chi tiết</a></li>
-        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#specifications">Thông số kỹ thuật</a></li>
-        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#reviews">Đánh giá</a></li>
-      </ul>
-      <div class="detail-tab-content">
-        <div class="tab-content">
-          <DetailedDes :product="product" />
-          <Specifications :product="product" />
-          <ProductReview :product="product" :reviews="reviews" :is-logged-in="isLoggedIn" />
+  <div class="product-detail">
+    <div class="container">
+      <div v-if="product">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="/san-pham">Sản phẩm</a></li>
+            <li class="breadcrumb-item active">{{ product.tenSanPham }}</li>
+          </ol>
+        </nav>
+        <GeneralInfor :product="product" />
+        <div class="detail-tabs">
+          <ul class="nav nav-tabs detail-tab-nav" role="tablist">
+            <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#description">Mô tả chi tiết</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#specifications">Thông số kỹ thuật</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#reviews">Đánh giá</a></li>
+          </ul>
+          <div class="detail-tab-content">
+            <div class="tab-content">
+              <DetailedDes :product="product" />
+              <Specifications :product="product" />
+              <ProductReview :product="product" :reviews="reviews" :is-logged-in="isLoggedIn" />
+            </div>
+          </div>
         </div>
+        <RelatedProduct :related-products="relatedProducts" />
       </div>
+      <div v-else>Loading...</div>
     </div>
-    <RelatedProduct :related-products="relatedProducts" />
   </div>
-  <div v-else>Loading...</div>
 </template>
 
 <script setup>
@@ -65,13 +76,30 @@ watch(() => props.slug, (newSlug) => {
 })
 </script>
 <style scoped>
-/* Enhanced Product Detail Tabs */
+.product-detail {
+    padding: 30px 150px;
+    background: var(--light-color);
+}
+
+.product-detail .breadcrumb {
+    background: transparent;
+    padding: 0.5rem 0 1.5rem;
+}
+
+.product-detail .breadcrumb-item a {
+    color: var(--primary-color);
+    font-size: 0.95rem;
+}
+
+.product-detail .breadcrumb-item.active {
+    color: #666;
+}
+
 .detail-tabs {
     background: white;
     border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     margin: 2.5rem 0;
-    overflow: hidden;
 }
 
 .detail-tab-nav {
@@ -81,46 +109,44 @@ watch(() => props.slug, (newSlug) => {
     position: relative;
 }
 
-.detail-tab-link {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #555;
-    padding: 1rem 1.5rem;
-    border-radius: 10px 10px 0 0;
-    border: none;
-    transition: all 0.3s ease;
+.nav-item {
     position: relative;
-    overflow: hidden;
 }
 
-.detail-tab-link::before {
+.nav-link {
+    color: #666;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    border: none !important;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+    color: var(--primary-color);
+    background: rgba(var(--primary-rgb), 0.05);
+}
+
+.nav-link::before {
     content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
     width: 0;
     height: 2px;
-    background: var(--gradient);
+    background: var(--gradient-hover);
     transition: all 0.3s ease;
     transform: translateX(-50%);
 }
 
-.detail-tab-link.active {
-    color: var(--primary-color);
-    background: white !important;
-}
-
-.detail-tab-link.active::before {
-    width: 100%;
-}
-
-.detail-tab-link:hover:not(.active) {
-    color: var(--primary-color);
-    transform: translateY(-2px);
+.nav-link.active::before {
+  width: 100%;
+  color: var(--primary-color);
 }
 
 .detail-tab-content {
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 </style>

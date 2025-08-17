@@ -37,9 +37,14 @@ namespace WebService.Repositories
 
         public async Task<Product> GetBySlugAsync(string slug)
         {
-            return await _context.Products
-                .Include(p => p.HinhAnh)
-                .FirstOrDefaultAsync(p => p.Slug == slug);
+            var product = await _context.Products.Include(p => p.HinhAnh).FirstOrDefaultAsync(p => p.Slug == slug);
+            if (product != null)
+            {
+                product.LuotXem += 1;
+                _context.Entry(product).Property(p => p.LuotXem).IsModified = true;
+                await _context.SaveChangesAsync();
+            }
+            return product;
         }
 
         public async Task<IEnumerable<Product>> GetFeaturedAsync()

@@ -1,51 +1,127 @@
 <template>
-  <table class="table .table-specifications">
-    <tbody>
-      <tr>
-        <td><strong>Màu sắc:</strong></td>
-        <td>{{ product.mauSac || 'Chưa cập nhật' }}</td>
-      </tr>
-      <tr>
-        <td><strong>Kích thước:</strong></td>
-        <td>{{ product.kichThuoc || 'Chưa cập nhật' }}</td>
-      </tr>
-      <tr>
-        <td><strong>Chất liệu:</strong></td>
-        <td>{{ product.chatLieu || 'Chưa cập nhật' }}</td>
-      </tr>
-      <tr>
-        <td><strong>Xuất xứ:</strong></td>
-        <td>{{ product.xuatXu || 'Chưa cập nhật' }}</td>
-      </tr>
-      <tr>
-        <td><strong>Bảo hành:</strong></td>
-        <td>{{ product.baoHanh || 'Chưa cập nhật' }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="tab-pane fade" id="specifications" role="tabpanel">
+    <div class="product-specifications">
+      <!-- Có thể thêm table-striped tùy vào phong cách -->
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>Màu sắc: </th>
+            <td>
+              <span v-if="product.mauSac">{{ product.mauSac }}</span>
+              <span v-else class="not-updated">Chưa cập nhật</span>
+            </td>
+          </tr>
+          <tr>
+            <th>Kích thước: </th>
+            <td>
+              <span v-if="product.kichThuoc">{{ product.kichThuoc }}</span>
+              <span v-else class="not-updated">Chưa cập nhật</span>
+            </td>
+          </tr>
+          <tr>
+            <th>Chất liệu: </th>
+            <td>
+              <span v-if="product.chatLieu">{{ product.chatLieu }}</span>
+              <span v-else class="not-updated">Chưa cập nhật</span>
+            </td>
+          </tr>
+          <tr>
+            <th>Xuất xứ: </th>
+            <td>
+              <span v-if="product.xuatXu">{{ product.xuatXu }}</span>
+              <span v-else class="not-updated">Chưa cập nhật</span>
+            </td>
+          </tr>
+          <tr>
+            <th>Bảo hành: </th>
+            <td>
+              <span v-if="product.baoHanh">{{ product.baoHanh }}</span>
+              <span v-else class="not-updated">Chưa cập nhật</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
-
 <script setup>
 defineProps({
-  product: Object
+  product: {
+    type: Object,
+    required: true
+  }
 })
 </script>
 
 <style scoped>
-/* Specifications Table */
-.table-specifications {
-    width: 100%;
-    margin-bottom: 0;
+
+.table tbody tr {
+    transition: all 0.3s ease;
 }
 
-.table-specifications td {
-    padding: 1rem;
-    border-color: rgba(0,0,0,0.05);
+.table tbody tr:hover {
+    background-color: rgba(0,0,0,0.01);
 }
 
-.table-specifications tr:nth-child(odd) {
-    background-color: var(--light-color);
+.table th,
+.table td {
+    padding: 1.2rem 1.5rem;
+    border-color: rgb(230 230 230);
+    vertical-align: middle;
 }
 
+.table th {
+    width: 30%;
+    font-weight: 600;
+    border-right: 1px solid rgb(230 230 230);
+}
 
+.not-updated {
+  color: #856404;
+  background-color: #fff3cd;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .product-specifications {
+        margin: 0.5rem auto;
+    }
+
+    .table th,
+    .table td {
+        padding: 1rem;
+    }
+
+    .table th {
+        width: 40%;
+    }
+}
+
+@media (max-width: 576px) {
+    .table {
+        border-radius: 8px;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .table th {
+        width: 45%;
+    }
+}
+
+@media print {
+  .product-specifications {
+    box-shadow: none;
+  }
+
+  .table th, .table td {
+      border: 1px solid #dee2e6;
+  }
+}
 </style>
